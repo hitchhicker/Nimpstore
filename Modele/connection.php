@@ -1,7 +1,5 @@
 <?php
-
-include 'connect_db.php';   
-
+include 'connec_db.php';
 function create_user($email,$password)
 {
     $stmt = $GLOBALS['conn']->prepare("INSERT INTO Client VALUES (:email, :password )");
@@ -22,7 +20,7 @@ function get_email($email,$password)
     /*** execute the prepared statement ***/
     $stmt->execute(); 
     /*** check for a result ***/
-    $res = $stmt->fetchColumn(0); //recuperer l'email
+    $res = $stmt->fetchColumn(0);
     // echo $res;
     return $res;
 }

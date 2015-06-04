@@ -30,17 +30,17 @@ CREATE TABLE Ressource (
 );
 
 
-CREATE TABLE SystemeExploitation(
+Create table SystemeExploitation(
+	id SERIAL,
 	versionA varchar(50),
 	nom varchar(50),
-	PRIMARY KEY(versionA,nom)
+	PRIMARY KEY(id)
 );
 
-
-CREATE TABLE Modele(
+Create table Modele(
 	designation varchar(50) primary key,
 	nomConstructeur varchar(50),
-	versionDuSyst varchar(50) references SystemeExploitation(versionA) unique not null
+	idDuSyst integer references SystemeExploitation(id) not null
 );
 
 
@@ -75,7 +75,6 @@ CREATE TABLE Moyen (
  dateValide date
 );
 CREATE TYPE typeDuree AS ENUM ('mois', 'annne','semestre');
-
 CREATE TABLE Automatique (
  dateDePaiment date,
  duree typeDuree,
@@ -98,6 +97,7 @@ CREATE TABLE Terminal(
 	idAchatSimple serial references Moyen(id)
 );
 
+
 CREATE TABLE AchatSimple (
  id SERIAL PRIMARY KEY,
  datePaye date,
@@ -105,3 +105,4 @@ CREATE TABLE AchatSimple (
  idClient varchar(50) references Client(email),
  idMoyen integer references Moyen(id)
 );
+

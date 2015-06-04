@@ -2,18 +2,19 @@
 session_start();//
 
 //connect to data base
-// $host="localhost";
-// $port="5432";
-// $dbName="postgres";
-// $user="postgres";
-// $password="asd123zxc";
+$host="localhost";
+$port="5432";
+$dbName="postgres";
+$user="postgres";
+$password="asd123zxc";
 
 //BDD du UTC
-$host="tuxa.sme.utc";
-$port="5432";
-$dbName="dbnf17p051";
-$user="nf17p051";
-$password="kjsCCyJ1";
+// $host="tuxa.sme.utc";
+// $port="5432";
+// $dbName="dbnf17p051";
+// $user="nf17p051";
+// $password="kjsCCyJ1";
+
 $dsn = "pgsql:host=$host;port=$port;dbname=$dbName;user=$user;password=$password";
 
 try{

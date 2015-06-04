@@ -14,3 +14,10 @@ body {
 a{
 	text-decoration:none;
 }
+.white {
+	color: #fff;
+}
+
+#deconnexion{
+	margin-left: 20px;
+}
