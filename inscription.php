@@ -40,9 +40,9 @@ $_SESSION['form_token'] = $form_token;
 
     <div class="container">
 
-      <form class="form-signin" action="./addUser.php" method="post">
+      <form class="form-signin" method="post" action="index.php">
         <h2 class="form-signin-heading">Inscription</h2>
-
+        <input type="hidden" name="action" value="ajouteUser"> 
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value="" maxlength="40" name="email">
 

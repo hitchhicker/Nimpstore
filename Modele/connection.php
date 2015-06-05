@@ -1,5 +1,5 @@
 <?php
-include 'connec_db.php';
+include 'connect_db.php';
 function create_user($email,$password)
 {
     $stmt = $GLOBALS['conn']->prepare("INSERT INTO Client VALUES (:email, :password )");
