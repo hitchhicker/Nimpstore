@@ -87,13 +87,13 @@ function get_app($application)
      return $sql;
     
 }
-function commenter($note, $commentaire,$email,$titreDuTire)
+function commenter($note, $commentaire,$email,$titreDuArticle)
 {
      $sql = $GLOBALS['conn']->prepare("INSERT INTO emetUnAvis VALUES (:note, :commentaire, :email, :article);");
      $sql->bindParam(':note', $note, PDO::PARAM_INT);
-     $sql->bindParam(':commentaire', $commentaire, PDO::PARAM_INT);
+     $sql->bindParam(':commentaire', $commentaire, PDO::PARAM_STR);
      $sql->bindParam(':email', $email, PDO::PARAM_STR);
-     $sql->bindParam(':article', $titreDuTire, PDO::PARAM_STR);
+     $sql->bindParam(':article', $titreDuArticle, PDO::PARAM_STR);
 
      $sql->execute();   
 }
@@ -103,4 +103,27 @@ function get_commentaire($application)
     $sql->bindParam(':application', $application, PDO::PARAM_STR);
     $sql->execute(); 
     return $sql;
+}
+function get_note_moyenne($application)
+{
+    $sql = $GLOBALS['conn']->prepare("SELECT ROUND(AVG(note),2) FROM emetUnAvis WHERE article = :application"); 
+    $sql->bindParam(':application', $application, PDO::PARAM_STR);
+    $sql->execute(); 
+    return $sql;
+}
+function get_app_du_systeme($systeme)
+{
+    $sql = $GLOBALS['conn']->prepare("SELECT art.titre,edi.nom,art.prix 
+    FROM application app,article art, editeur edi, CompatibleAvec com, SystemeExploitation sys
+    WHERE sys.nom=:systeme
+    AND sys.id=com.iddusyst
+    AND art.titre=cOm.titrea
+    AND app.titre=art.titre 
+    AND  edi.id=art.editeur;
+    ");
+     $sql->bindParam(':systeme', $systeme, PDO::PARAM_STR);
+
+     $sql->execute();
+
+     return $sql;
 }

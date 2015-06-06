@@ -39,7 +39,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="./">Accueil</a></li>
+            <li><a href="./">Accueil</a></li>
             <li><a href="?modele=achat">Achat</a></li>
             <li><a href="?modele=vue">Vue</a></li>
             <li><a href="?modele=historiruq">Historique</a></li>

@@ -5,7 +5,7 @@
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">application</div>
+        <div class="panel-heading">application<span style="color: orange">&nbsp;Note:<?php echo $res_note->fetch(PDO::FETCH_BOTH)[0];?></span></div>
             <table class="table">
                 <tr>
                     <th>Nom</th>
@@ -43,7 +43,7 @@
    <div class="col-xs-6 col-sm-4">
 <div class="detailBox">
     <div class="titleBox">
-      <label>Commentaire</label>
+      <label>Avis</label>
     </div>
   
     <div class="actionBox">
@@ -65,11 +65,21 @@
 </div>
 </div>
 </div>
-
-<div class="form-group">
-      <label for="comment">Comment:</label>
-      <textarea class="form-control" rows="5" id="comment"></textarea>
+<form role="form">
+    <input type="hidden" name="modele" value="achat">
+    <input type="hidden" name="action" value="savoirplus">
+    <input type="hidden" name="application" value=<?php echo '"'.$_GET['application'].'"'?>>
+   <div class="form-group">
+      <label for="name">Note</label>
+      <input type="text" class="form-control" id="name" 
+         placeholder="1-5" name="note">
+   </div>
+   <div class="form-group">
+      <label for="comment">Avis:</label>
+      <textarea class="form-control" rows="5" id="comment" name="commentaire"></textarea>
     </div>
-</div>
+   <button type="submit" class="btn btn-default">Ajouter</button>
+</form>
+
 
 

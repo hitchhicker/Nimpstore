@@ -40,14 +40,9 @@ Create table SystemeExploitation(
 
 create table CompatibleAvec (
  titreA varchar(50) references Article(titre),
- iddusyst integer references SystemeExploitation(id)
-}
-
-
-create table CompatibleAvec (
-	titreA varchar(50) references Article(titre),
-	vers varchar(50) references SystemeExploitation(versionA)
-);
+ iddusyst integer references SystemeExploitation(id),
+ primary key(titreA,iddusyst)
+)
 
 Create table Terminal(
 	numSerie varchar(50) primary key,

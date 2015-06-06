@@ -68,5 +68,4 @@ function getIdDuSE($version,$nom)
 	$res = $sql->fetch(PDO::FETCH_BOTH);
 
 	return $res[0];
-
 }
