@@ -31,3 +31,14 @@ function ajouteEditeur($nom,$contact,$url)
 
 	 $sql->execute(); 
 }
+
+function commenter($note, $commentaire,$email,$article)
+{
+	 $sql = $GLOBALS['conn']->prepare("INSERT INTO emetUnAvis VALUES (, :nom, :contact, :url);");
+	 $sql->bindParam(':nom', $nom, PDO::PARAM_STR);
+	 $sql->bindParam(':contact', $contact, PDO::PARAM_INT);
+	 //il n'y pas de data type du Float dans PDO, donc PARAM_STR
+	 $sql->bindParam(':url', $url, PDO::PARAM_STR);
+
+	 $sql->execute(); 	
+}

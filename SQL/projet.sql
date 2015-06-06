@@ -19,7 +19,8 @@ create table emetUnAvis (
 	 note integer check (note between 0 and 5),
 	 commentaire varchar(500),
 	 client varchar(50) references Client(email),
-	 article varchar(50) references Article(titre)
+	 article varchar(50) references Article(titre),
+	 PRIMARY key(client,article)
 );
 create table Application (
 	titre varchar(50) references Article(titre) primary key
@@ -37,11 +38,10 @@ Create table SystemeExploitation(
 	PRIMARY KEY(id)
 );
 
-Create table Modele(
-	designation varchar(50) primary key,
-	nomConstructeur varchar(50),
-	idDuSyst integer references SystemeExploitation(id) not null
-);
+create table CompatibleAvec (
+ titreA varchar(50) references Article(titre),
+ iddusyst integer references SystemeExploitation(id)
+}
 
 
 create table CompatibleAvec (

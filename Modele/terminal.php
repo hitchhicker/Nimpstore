@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 function get_terminal($email)
 {
 /*** prepare the select statement ***/
- //    $sql = $GLOBALS['conn']->prepare("SELECT numSerie, typeModele FROM Terminal 
 	// WHERE clientUser = :email");
 	$sql = $GLOBALS['conn']->prepare("SELECT numSerie, typeModele FROM Terminal WHERE clientUser = :email;"); 
     /*** bind the parameters ***/
