@@ -54,27 +54,10 @@ Create table Terminal(
 create table Installation(
 	terminalInst varchar(50) references Terminal(numSerie),
 	articleInst varchar(50) references Article(titre),
-	dateInst date
+	dateInst date,
+	primary key(terminalInst,articleInst)
 );
 
-Create table Abonnement(
-	idPaiement varchar(50)PRIMARY KEY,
-	date Date,
-	titreA varchar(50) references Article(titre),
-	client varchar(50) references Client(email),
-	idM serial references Moyen(id)
-);
-
-
-
-
-create table AchatSimple (
- id SERIAL PRIMARY KEY,
- datePaye date,
- titre varchar(50) references Article(titre),
- idClient varchar(50) references Client(email),
- idMoyen integer references Moyen(id)
-);
 CREATE TYPE typeMoyen AS ENUM ('CB', 'CPP');
 
 create table Moyen (
@@ -85,21 +68,37 @@ create table Moyen (
  montCourant numeric,
  dateValide date
 );
+
+
+create table AchatSimple (
+ idPaiement SERIAL PRIMARY KEY,
+ dateDePaiment date,
+ titre varchar(50) references Article(titre),
+ idClient varchar(50) references Client(email),
+ idMoyen integer references Moyen(id)
+);
+
 CREATE TYPE typeDuree AS ENUM ('mois', 'annne','semestre');
 create table Automatique (
+idPaiement SERIAL PRIMARY KEY,
  dateDePaiment date,
  duree typeDuree,
  titre varchar(50) references Article(titre),
  idClient varchar(50) references Client(email),
  idMoyen integer references Moyen(id)
 );
+
 create table Defini (
+idPaiement SERIAL PRIMARY KEY,
+ dateDePaiment date,
  dureeDefini integer,
  duree typeDuree,
  titre varchar(50) references Article(titre),
  idClient varchar(50) references Client(email),
  idMoyen integer references Moyen(id)
-);
+); 
+
+
 
 
 insert into SystemeExploitation values (nextval('systemeexploitation_id_seq'),'5.0','Android');

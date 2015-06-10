@@ -1,11 +1,12 @@
-<br>
 <div class="container">
     <div class="row">
     <div class="col-xs-6 col-sm-8">
 
 
     <div class="panel panel-default">
-        <div class="panel-heading">application<span style="color: orange">&nbsp;Note:<?php echo $res_note->fetch(PDO::FETCH_BOTH)[0];?></span></div>
+        <div class="panel-heading">Application<span style="color: orange;font-size:20px">&nbsp;<?php echo $res_note->fetch(PDO::FETCH_BOTH)[0];?></span>
+           <button type="submit" class="btn btn-default" style="float:right"><a href=<?php echo'"'."?modele=achat&action=acheter&application=".$_GET['application'].'"'; ?>>Acheter</a></button>
+        </div>
             <table class="table">
                 <tr>
                     <th>Nom</th>
@@ -16,13 +17,16 @@
                                 echo '<tr>
                                 <td>'.$row[0].'</td>
                                 <td>'.$row[1].'</td>
+                                <td></td>
                                 </tr>';
                      }?>                     
             </table>
         </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading">Ressouces</div>
+        <div class="panel-heading">Ressouces<span style="color: orange;font-size:20px">&nbsp;TODO</span>
+          <!-- TODO -->
+        </div>
             <table class="table">
                 <tr>
                     <th>Nom</th>
@@ -33,7 +37,9 @@
                                 echo '<tr>
                                 <td>'.$row[0].'</td>
                                 <td>'.$row[1].'</td>
-                                </tr>';
+                                <td><button type="submit" class="btn btn-default" style="float:right;"><a href="?modele=achat&action=acheter" >Acheter</a></button><td>
+                                </tr>
+                                ';
                      }?>              
             </table>
     </div>
@@ -65,6 +71,26 @@
 </div>
 </div>
 </div>
+<br>
+ <div class="panel panel-default">
+        <div class="panel-heading">Description d'editeur</div>
+            <table class="table">
+                <tr>
+                    <th>Nom</th>
+                    <th>Contact</th>
+                    <th>URL</th>
+                </tr>
+                    <?php 
+                    while($row=$res_editeur->fetch(PDO::FETCH_BOTH)){
+                                echo '<tr>
+                                <td>'.$row[0].'</td>
+                                <td>'.$row[1].'</td>
+                                <td>'.$row[2].'</td>
+                                <td></td>
+                                </tr>';
+                     }?>                     
+            </table>
+        </div>
 <form role="form">
     <input type="hidden" name="modele" value="achat">
     <input type="hidden" name="action" value="savoirplus">
@@ -80,6 +106,7 @@
     </div>
    <button type="submit" class="btn btn-default">Ajouter</button>
 </form>
+
 
 
 

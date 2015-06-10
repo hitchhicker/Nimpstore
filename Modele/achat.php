@@ -127,3 +127,14 @@ function get_app_du_systeme($systeme)
 
      return $sql;
 }
+
+function get_editeur_saisir_application($application)
+{
+     $sql = $GLOBALS['conn']->prepare("SELECT nom,contact,url 
+    FROM editeur edi,article art
+    WHERE art.titre= :application
+    AND edi.id=art.editeur;");
+     $sql->bindParam(':application', $application, PDO::PARAM_STR);
+      $sql->execute(); 
+    return $sql;  
+}

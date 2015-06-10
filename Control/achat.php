@@ -1,6 +1,6 @@
 <?php
 include 'Modele/achat.php';
-include 'Vue/achat.php';
+include 'Vue//achat/achat.php';
 
 if(isset($_GET['action']))
 {
@@ -39,7 +39,14 @@ function savoirplus()
 	$res_res = get_resssouce($_GET['application']);
 	$res_com = get_commentaire($_GET['application']);
 	$res_note = get_note_moyenne($_GET['application']);
+	$res_editeur = get_editeur_saisir_application($_GET['application']);
+
 	include 'Vue/achat/detailAPP.php';
+}
+
+function acheter()
+{
+	echo "<p>VUE ACHETER A FAIRE</P>";
 }
 
 if(!empty($message))

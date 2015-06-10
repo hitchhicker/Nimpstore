@@ -25,7 +25,7 @@ a{
 @import url(//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
 
 .detailBox {
-    width:320px;
+    width:300px;
     border:1px solid #bbb;
     margin:50px;
 }

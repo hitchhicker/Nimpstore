@@ -41,8 +41,6 @@
           <ul class="nav navbar-nav">
             <li><a href="./">Accueil</a></li>
             <li><a href="?modele=achat">Achat</a></li>
-            <li><a href="?modele=vue">Vue</a></li>
-            <li><a href="?modele=historiruq">Historique</a></li>
           </ul>
         <div id="navbar" class="navbar-collapse collapse">
             
