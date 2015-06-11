@@ -5,7 +5,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">Application<span style="color: orange;font-size:20px">&nbsp;<?php echo $res_note->fetch(PDO::FETCH_BOTH)[0];?></span>
-           <button type="submit" class="btn btn-default" style="float:right"><a href=<?php echo'"'."?modele=achat&action=acheter&application=".$_GET['application'].'"'; ?>>Acheter</a></button>
+           <button type="submit" class="btn btn-default" style="float:right"><a href=<?php echo'"'."?modele=achat&action=acheter&article=".$_GET['application'].'"'; ?>>Acheter</a></button>
         </div>
             <table class="table">
                 <tr>
@@ -15,7 +15,7 @@
                     <?php 
                     while($row=$res_app->fetch(PDO::FETCH_BOTH)){
                                 echo '<tr>
-                                <td>'.$row[0].'</td>
+                                <td style="width: 400px;">'.$row[0].'</td>
                                 <td>'.$row[1].'</td>
                                 <td></td>
                                 </tr>';
@@ -24,7 +24,10 @@
         </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading">Ressouces<span style="color: orange;font-size:20px">&nbsp;TODO</span>
+        <div class="panel-heading">Ressouces<span style="color: orange;font-size:20px">&nbsp;
+            <?php 
+            $res_note = get_note_moyenne($row[0]);
+            echo $res_note->fetch(PDO::FETCH_BOTH)[0];?></span>
           <!-- TODO -->
         </div>
             <table class="table">
@@ -35,9 +38,11 @@
                     <?php 
                     while($row=$res_res->fetch(PDO::FETCH_BOTH)){
                                 echo '<tr>
-                                <td>'.$row[0].'</td>
-                                <td>'.$row[1].'</td>
-                                <td><button type="submit" class="btn btn-default" style="float:right;"><a href="?modele=achat&action=acheter" >Acheter</a></button><td>
+                                <td style="width: 400px;">'.$row[0];
+                                $res_note = get_note_moyenne($row[0]);
+                                echo '&nbsp;<span style="color: orange;font-size:20px">'.$res_note->fetch(PDO::FETCH_BOTH)[0].'</span></td>';
+                                echo '<td>'.$row[1].'</td>
+                                <td><button type="submit" class="btn btn-default" style="float:right;"><a href="?modele=achat&action=acheter&article='.$row[0].'" >Acheter</a></button><td>
                                 </tr>
                                 ';
                      }?>              

@@ -15,6 +15,7 @@ CREATE table Article(
 	 editeur integer references Editeur(id),
 	 prix numeric
 );
+
 create table emetUnAvis (
 	 note integer check (note between 0 and 5),
 	 commentaire varchar(500),
@@ -30,12 +31,17 @@ create table Ressource (
 	application varchar(50) references Application(titre)
 );
 
-
 Create table SystemeExploitation(
 	id SERIAL,
 	versionA varchar(50),
 	nom varchar(50),
 	PRIMARY KEY(id)
+);
+
+Create table Modele(
+	designation varchar(50) primary key,
+	nomConstructeur varchar(50),
+	versionDuSyst varchar(50) references SystemeExploitation(versionA) unique not null
 );
 
 create table CompatibleAvec (
@@ -95,10 +101,8 @@ idPaiement SERIAL PRIMARY KEY,
  duree typeDuree,
  titre varchar(50) references Article(titre),
  idClient varchar(50) references Client(email),
- idMoyen integer references Moyen(id)
+ 	idMoyen integer references Moyen(id)
 ); 
-
-
 
 
 insert into SystemeExploitation values (nextval('systemeexploitation_id_seq'),'5.0','Android');

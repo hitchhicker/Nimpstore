@@ -8,7 +8,7 @@
           <div class="caption">
             <h3>'.$row[0].'  $'.$row[2].'</h3>
             <p>Cree par '.$row[1].'</p>
-            <p><a href="#" class="btn btn-primary" role="button">Acheter</a>
+            <p><a  class="btn btn-primary" role="button" href="?modele=achat&action=acheter&article=';echo $row[0].'"'.'; ?>Acheter</a>
             <a href=?modele=achat&action=savoirplus&application=';
             echo $row[0];
             echo' class="btn btn-default" role="button">savoir plus</a></p>

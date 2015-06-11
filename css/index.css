@@ -17,7 +17,10 @@ a{
 .white {
 	color: #fff;
 }
-
+#payment {
+    padding-top: 10px;
+    padding-left: 20px;
+}
 #deconnexion{
 	margin-left: 20px;
 }

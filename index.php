@@ -1,5 +1,5 @@
 <?php
-session_start();//
+session_start();
 
 include 'Vue/header_base.php';
 // echo (isset($_POST['action']));

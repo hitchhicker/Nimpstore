@@ -84,8 +84,16 @@ function get_app($application)
 
      $sql->execute();
 
-     return $sql;
-    
+     return $sql;  
+}
+function get_article($article)
+{
+    $sql = $GLOBALS['conn']->prepare("SELECT art.titre, art.prix FROM article art WHERE art.titre =:article;");
+     $sql->bindParam(':article', $article, PDO::PARAM_STR);
+
+     $sql->execute();
+
+     return $sql;  
 }
 function commenter($note, $commentaire,$email,$titreDuArticle)
 {
@@ -104,10 +112,10 @@ function get_commentaire($application)
     $sql->execute(); 
     return $sql;
 }
-function get_note_moyenne($application)
+function get_note_moyenne($article)
 {
-    $sql = $GLOBALS['conn']->prepare("SELECT ROUND(AVG(note),2) FROM emetUnAvis WHERE article = :application"); 
-    $sql->bindParam(':application', $application, PDO::PARAM_STR);
+    $sql = $GLOBALS['conn']->prepare("SELECT ROUND(AVG(note),2) FROM emetUnAvis WHERE article = :article"); 
+    $sql->bindParam(':article', $article, PDO::PARAM_STR);
     $sql->execute(); 
     return $sql;
 }
@@ -138,3 +146,24 @@ function get_editeur_saisir_application($application)
       $sql->execute(); 
     return $sql;  
 }
+
+function acheter_simple_cb($email,$carte,$article)
+{
+    $sql = $GLOBALS['conn']->prepare("INSERT INTO Moyen(id,num,type) 
+    VALUES (nextval('moyen_id_seq'),:carte,'CB')");
+    $sql->bindParam(':carte', $carte, PDO::PARAM_STR);
+    $sql->execute();
+
+    $sql = $GLOBALS['conn']->prepare("INSERT INTO AchatSimple VALUES
+(nextval('AchatSimple_idpaiement_seq'),CURRENT_DATE,:article,:email,1)
+");
+    $sql->bindParam(':article', $article, PDO::PARAM_STR);
+    $sql->bindParam(':email', $email, PDO::PARAM_STR);
+    $sql->execute();
+}
+
+
+
+
+
+

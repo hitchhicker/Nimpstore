@@ -12,6 +12,17 @@ if(isset($_GET['action']))
 		case 'acheter':
 			acheter();
 			break;
+		case 'confirmer':
+			if(isset($_SESSION['user_email']))
+			{
+				if(!empty($_GET['carte']))
+					confirmer();				
+				else
+					$message = "Numero de la carte est vide";
+			}
+			else
+				$message = "Vous ne pouvez pas acheter sans connecter !";	
+			break;
 	}
 	if(isset($_GET['note'])&&isset($_GET['commentaire']))
 		if(isset($_SESSION['user_email']))
@@ -32,6 +43,13 @@ else
 	include 'Vue/achat/application.php';
 }
 
+if(!empty($message))
+{
+	echo "<script language=\"JavaScript\">\r\n"; 
+	echo " alert('$message');\r\n"; 
+	echo " history.back();\r\n"; 
+	echo "</script>";
+}
 
 function savoirplus()
 {
@@ -39,20 +57,21 @@ function savoirplus()
 	$res_res = get_resssouce($_GET['application']);
 	$res_com = get_commentaire($_GET['application']);
 	$res_note = get_note_moyenne($_GET['application']);
-	$res_editeur = get_editeur_saisir_application($_GET['application']);
 
 	include 'Vue/achat/detailAPP.php';
 }
 
 function acheter()
 {
-	echo "<p>VUE ACHETER A FAIRE</P>";
+	include 'Vue/achat/achat_simple.php';
 }
 
-if(!empty($message))
+function confirmer()
 {
-	echo "<script language=\"JavaScript\">\r\n"; 
-	echo " alert('$message');\r\n"; 
-	echo " history.back();\r\n"; 
-	echo "</script>";
+		if($_GET['optionsPay']=='cb')	
+			acheter_simple_cb($_SESSION['user_email'],$_GET['carte'],$_GET['article']);
+		else //TO DISCUSS !!!!
+		{
+			$toto=NULL; 
+		}
 }

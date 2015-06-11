@@ -149,10 +149,13 @@ function signin()
 			$_SESSION['user_email'] = $user_email;			
 	    }
 	}
+		if(!empty($message))
+		{
 		echo "<script language=\"JavaScript\">\r\n"; 
 	    echo " alert('$message');\r\n"; 
-	    echo " history.back();\r\n"; 
+	    // echo " history.back();\r\n"; 
 	    echo "</script>"; 
+		}
 }
 
 function signout()
