@@ -87,15 +87,15 @@
                 </tr>
                     <?php 
                     while($row=$res_editeur->fetch(PDO::FETCH_BOTH)){
-                                echo '<tr>
-                                <td>'.$row[0].'</td>
-                                <td>'.$row[1].'</td>
-                                <td>'.$row[2].'</td>
-                                <td></td>
-                                </tr>';
-                     }?>                     
+                    echo '<tr>
+                        <td>'.$row[0].'</td>
+                        <td>'.$row[1].'</td>
+                        <td>'.$row[2].'</td>
+                        </tr>';
+                     }
+                     ?>                     
             </table>
-        </div>
+</div>
 <form role="form">
     <input type="hidden" name="modele" value="achat">
     <input type="hidden" name="action" value="savoirplus">

@@ -10,7 +10,6 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Acceuil</title>
-
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 

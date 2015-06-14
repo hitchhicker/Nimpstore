@@ -1,4 +1,4 @@
-﻿create table Client (
+create table Client (
 	email varchar(40) PRIMARY KEY,
 	password char(40) not null
 );
@@ -41,7 +41,7 @@ Create table SystemeExploitation(
 Create table Modele(
 	designation varchar(50) primary key,
 	nomConstructeur varchar(50),
-	versionDuSyst varchar(50) references SystemeExploitation(versionA) unique not null
+	iddusyst varchar(50) references SystemeExploitation(id) unique not null
 );
 
 create table CompatibleAvec (
@@ -101,7 +101,7 @@ idPaiement SERIAL PRIMARY KEY,
  duree typeDuree,
  titre varchar(50) references Article(titre),
  idClient varchar(50) references Client(email),
- 	idMoyen integer references Moyen(id)
+ idMoyen integer references Moyen(id)
 ); 
 
 

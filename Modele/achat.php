@@ -6,6 +6,7 @@ function show_article()
 	$sql = $GLOBALS['conn']->prepare("SELECT titre, editeur, prix FROM article;"); 
     /*** execute the prepared statement ***/
     $sql->execute(); 
+    return $sql;
 }
 
 function add_ressource($email,$password)
@@ -135,7 +136,21 @@ function get_app_du_systeme($systeme)
 
      return $sql;
 }
+function get_app_du_autre_system()
+{
+    $sql = $GLOBALS['conn']->prepare("SELECT art.titre,edi.nom,art.prix 
+    FROM application app,article art, editeur edi, CompatibleAvec com, SystemeExploitation sys
+    WHERE sys.nom != 'Android'
+    AND sys.nom != 'iOs'
+    AND sys.id=com.iddusyst
+    AND art.titre=cOm.titrea
+    AND app.titre=art.titre 
+    AND  edi.id=art.editeur;
+    ");
+     $sql->execute();
 
+     return $sql;
+}
 function get_editeur_saisir_application($application)
 {
      $sql = $GLOBALS['conn']->prepare("SELECT nom,contact,url 
@@ -144,6 +159,7 @@ function get_editeur_saisir_application($application)
     AND edi.id=art.editeur;");
      $sql->bindParam(':application', $application, PDO::PARAM_STR);
       $sql->execute(); 
+    // $sql->debugDumpParams(); 
     return $sql;  
 }
 
@@ -162,6 +178,18 @@ function acheter_simple_cb($email,$carte,$article)
     $sql->execute();
 }
 
+function get_app_by_terminal($terminal)
+{
+    $sql = $GLOBALS['conn']->prepare("SELECT app.titre
+    FROM modele mod,application app, article art, compatibleavec com
+    WHERE mod.designation=:terminal
+    AND mod.iddusyst=com.iddusyst
+    AND com.titrea=art.titre
+    AND art.titre=app.titre;");
+    $sql->bindParam(':terminal', $terminal, PDO::PARAM_STR);
+    $sql->execute();
+    return $sql;
+}
 
 
 

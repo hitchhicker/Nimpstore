@@ -1,5 +1,6 @@
 <?php
 include 'Modele/achat.php';
+include 'Modele/terminal.php';
 include 'Vue//achat/achat.php';
 
 if(isset($_GET['action']))
@@ -34,11 +35,17 @@ else
 {
 	if(isset($_GET['systeme']))
 	{
-		$res = get_app_du_systeme($_GET['systeme']);
+		if($_GET['systeme'] == 'Autre')
+			$res = get_app_du_autre_system();
+		else 
+			$res = get_app_du_systeme($_GET['systeme']);
 	}
 	else 
 	{
-		$res = get_all_app();
+		if(isset($_GET['terminal']) && $_GET['terminal']!='Tout')
+			$res = showbyterminal();
+		else
+			$res = get_all_app();
 	}
 	include 'Vue/achat/application.php';
 }
@@ -56,6 +63,7 @@ function savoirplus()
 	$res_app = get_app($_GET['application']);
 	$res_res = get_resssouce($_GET['application']);
 	$res_com = get_commentaire($_GET['application']);
+	$res_editeur = get_editeur_saisir_application($_GET['application']);
 	$res_note = get_note_moyenne($_GET['application']);
 
 	include 'Vue/achat/detailAPP.php';
@@ -74,4 +82,11 @@ function confirmer()
 		{
 			$toto=NULL; 
 		}
+}
+function showbyterminal()
+{
+	if(isset($_SESSION['user_email']))
+	{
+		return get_app_by_terminal($_GET['terminal']);
+	}
 }

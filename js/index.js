@@ -7,3 +7,11 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   modal.find('.modal-title').text('New message to ' + recipient)
   modal.find('.modal-body input').val(recipient)
 })
+
+$(document).ready(function(){
+	$('#terminal_option').change(function() {
+	  var update_url = './index.php?modele=achat&terminal=' +$( "#terminal_option option:selected" ).text();
+	  // alert(update_url);
+	  window.location.assign(update_url);
+	});
+});

@@ -25,8 +25,7 @@ function ajouteTerminal($email,$numSerie,$designation,$se,$version,$constru)
 	//ajoute une nouvelle modele
 	$sql = $GLOBALS['conn']->prepare("INSERT INTO Modele VALUES (:designation, :nomConstructeur, :idDuSyst);");
     /*** bind the parameters ***/
-    //TODO
-    $sql->debugDumpParams();
+    // $sql->debugDumpParams();
     $sql->bindParam(':designation', $designation, PDO::PARAM_STR);
     $sql->bindParam(':nomConstructeur', $constru, PDO::PARAM_STR);
     $sql->bindParam(':idDuSyst', $id_SE, PDO::PARAM_INT);
@@ -61,11 +60,46 @@ function getIdDuSE($version,$nom)
 
 	$sql->bindParam(':nom',$nom,PDO::PARAM_STR);
 
-	$sql->debugDumpParams();
+	// $sql->debugDumpParams();
 	//excute le sql
 	$sql->execute();
 
 	$res = $sql->fetch(PDO::FETCH_BOTH);
 
 	return $res[0];
+}
+
+function check_nombre_de_terminal($email)
+{
+    $sql = $GLOBALS['conn']->prepare("SELECT COUNT(numserie)
+    FROM terminal 
+    WHERE clientUser=:email ");
+    $sql->bindParam(':email',$email,PDO::PARAM_STR);
+    $sql->execute();
+    // $sql->debugDumpParams();
+    $res = $sql->fetch(PDO::FETCH_BOTH);
+    return $res[0];
+}
+
+function supprimer_terminal($terminal,$email) //ex:Nexus
+{
+    //get the number of terminal
+    $sql = $GLOBALS['conn']->prepare("SELECT numSerie FROM terminal 
+    WHERE typeModele =:terminal
+    AND clientUser = :email");
+    $sql->bindParam(':terminal',$terminal,PDO::PARAM_STR);
+    $sql->bindParam(':email',$email,PDO::PARAM_STR);
+    $sql->execute();
+    $row = $sql->fetch(PDO::FETCH_BOTH);
+    $num_serie = $row[0];
+    //supprime les infos dans le table installation, sinon on ne peut pas supprimer le terminal 
+    //dans le table 'terminal' parce que il est lie
+    $sql = $GLOBALS['conn']->prepare("DELETE FROM installation 
+    WHERE terminal =:num_serie;");
+    $sql->bindParam(':num_serie',$num_serie,PDO::PARAM_STR);
+    $sql->execute();
+    $sql = $GLOBALS['conn']->prepare("DELETE FROM terminal 
+    WHERE numserie=:num_serie;");
+    $sql->bindParam(':num_serie',$num_serie,PDO::PARAM_STR);
+    $sql->execute();
 }
