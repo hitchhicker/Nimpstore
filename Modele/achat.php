@@ -170,11 +170,17 @@ function acheter_simple_cb($email,$carte,$article)
     $sql->bindParam(':carte', $carte, PDO::PARAM_STR);
     $sql->execute();
 
+    //get the id number of the 'moyen'
+    $sql = $GLOBALS['conn']->prepare("SELECT MAX(id) FROM moyen ;");
+    $sql->execute();
+    $row = $sql->fetch();
+    $id_moyen = $row[0];
+
     $sql = $GLOBALS['conn']->prepare("INSERT INTO AchatSimple VALUES
-(nextval('AchatSimple_idpaiement_seq'),CURRENT_DATE,:article,:email,1)
-");
+    (nextval('AchatSimple_idpaiement_seq'),CURRENT_DATE,:article,:email,:id_moyen);");
     $sql->bindParam(':article', $article, PDO::PARAM_STR);
     $sql->bindParam(':email', $email, PDO::PARAM_STR);
+    $sql->bindParam(':id_moyen', $id_moyen, PDO::PARAM_INT);
     $sql->execute();
 }
 
@@ -191,7 +197,33 @@ function get_app_by_terminal($terminal)
     return $sql;
 }
 
+function abonnement_cb($email,$carte,$article)
+{
+    $sql = $GLOBALS['conn']->prepare("INSERT INTO Moyen(id,num,type) 
+    VALUES (nextval('moyen_id_seq'),:carte,'CB')");
+    $sql->bindParam(':carte', $carte, PDO::PARAM_STR);
+    $sql->execute();
 
+    //get the id number of the 'moyen'
+    $sql = $GLOBALS['conn']->prepare("SELECT MAX(id) FROM moyen ;");
+    $sql->execute();
+    $row = $sql->fetch();
+    $id_moyen = $row[0];
 
+    $sql = $GLOBALS['conn']->prepare("INSERT INTO Abonnement VALUES
+    (nextval('Abonnement_idpaiement_seq'),CURRENT_DATE,:article,:email,:id_moyen);");
+    $sql->bindParam(':article', $article, PDO::PARAM_STR);
+    $sql->bindParam(':email', $email, PDO::PARAM_STR);
+    $sql->bindParam(':id_moyen', $id_moyen, PDO::PARAM_INT);
+    $sql->execute();
+}
+
+function get_info_abonnement($article)
+{
+    $sql = $GLOBALS['conn']->prepare("SELECT * FROM abonnement_article WHERE titreDuArticle=:article;");
+    $sql->bindParam(':article', $article, PDO::PARAM_STR);
+    $sql->execute();
+    return $sql;
+}
 
 

@@ -13,11 +13,22 @@ if(isset($_GET['action']))
 		case 'acheter':
 			acheter();
 			break;
-		case 'confirmer':
+		case 'abonnement_confirmer':
 			if(isset($_SESSION['user_email']))
 			{
 				if(!empty($_GET['carte']))
-					confirmer();				
+					abonnement_confirmer();				
+				else
+					$message = "Numero de la carte est vide";
+			}
+			else
+				$message = "Vous ne pouvez pas acheter sans connecter !";	
+			break;
+		case 'achat_simple_confirmer':
+			if(isset($_SESSION['user_email']))
+			{
+				if(!empty($_GET['carte']))
+					achat_simple_confirmer();				
 				else
 					$message = "Numero de la carte est vide";
 			}
@@ -74,7 +85,7 @@ function acheter()
 	include 'Vue/achat/achat_simple.php';
 }
 
-function confirmer()
+function achat_simple_confirmer()
 {
 		if($_GET['optionsPay']=='cb')	
 			acheter_simple_cb($_SESSION['user_email'],$_GET['carte'],$_GET['article']);
@@ -89,4 +100,14 @@ function showbyterminal()
 	{
 		return get_app_by_terminal($_GET['terminal']);
 	}
+}
+
+function abonnement_confirmer()
+{
+	if($_GET['optionsPay']=='cb')	
+			abonnement_cb($_SESSION['user_email'],$_GET['carte'],$_GET['article']);
+		else //TO DISCUSS !!!!
+		{
+			$toto=NULL; 
+		}
 }

@@ -20,7 +20,10 @@ if(isset($_REQUEST['action']))
 
 if(isset($_SESSION['user_email']))
 {
-	include 'Vue/connection/logged_in.php';
+	if($_SESSION['user_email']=='admin@admin')
+		include 'Vue/connection/logged_admin.php';
+	else 
+		include 'Vue/connection/logged_in.php';
 }
 else 
 {

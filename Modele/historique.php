@@ -1,7 +1,7 @@
 <?php
 include 'connect_db.php';
 
-function show_installation()
+function showinstallation_by_user($email)
 {
 	$sql = $GLOBALS['conn']->prepare("SELECT * FROM Installation;"); 
 	$sql->execute();
@@ -51,13 +51,17 @@ function get_terminal_by_app($email,$application)
 	$sql->execute();
 	return $sql;
 }
-function installe($terminal,$article)
+
+function installe($terminal,$article,$email)
 {
 	$sql = $GLOBALS['conn']->prepare("SELECT numserie FROM terminal 
-	WHERE typemodele=:terminal;");
+	WHERE typemodele=:terminal
+	AND clientuser=:email 
+	;");
 	//get the number of terminal
 	
 	$sql->bindParam(':terminal', $terminal, PDO::PARAM_STR);
+	$sql->bindParam(':email', $email, PDO::PARAM_STR);
 	$sql->execute();
 	$row = $sql->fetch(PDO::FETCH_BOTH);
 	$numserie = $row[0];

@@ -75,7 +75,6 @@ create table Moyen (
  dateValide date
 );
 
-
 create table AchatSimple (
  idPaiement SERIAL PRIMARY KEY,
  dateDePaiment date,
@@ -85,6 +84,19 @@ create table AchatSimple (
 );
 
 CREATE TYPE typeDuree AS ENUM ('mois', 'annne','semestre');
+create table Abonnement(
+	idPaiement SERIAL PRIMARY KEY,
+	dateDePaiment date,
+	article varchar(50) references abonnement_article(titreDuArticle),
+	idClient varchar(50) references Client(email),
+	idMoyen integer references Moyen(id)
+);
+create table abonnement_article(
+	duree typeDuree,
+	duree_valeur integer,
+	titreDuArticle varchar(50)
+);
+
 create table Automatique (
 idPaiement SERIAL PRIMARY KEY,
  dateDePaiment date,

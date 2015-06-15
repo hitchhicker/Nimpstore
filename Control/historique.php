@@ -13,14 +13,13 @@ if(isset($_GET['action']))
 			include	'Vue/historique/installer_form.php';
 			break;
 		case 'installer':
-		// echo '<p>dd</p>';
 			installer();
 			break;
 	}
 }
 function showinstallation()
 {
-	$res_inst = show_installation();
+	$res_inst = showinstallation_by_user($_SESSION['user_email']);
 	include 'Vue/historique/installation.php';
 }
 function showachat()
@@ -32,6 +31,6 @@ function showachat()
 }
 function installer()
 {
-	installe($_GET['terminal'],$_GET['article']);
+	installe($_GET['terminal'],$_GET['article'],$_SESSION['user_email']);
 	include 'Vue/historique/installe_reusit.php';
 }
